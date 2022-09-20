@@ -6,12 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lotto-generator</title>
     <style>
+        body{
+            background-color: rgb(243, 243, 254);
+        }
         .title{
-            margin: 3rem;
-            font-size: 4rem;
+            margin-bottom: 2rem;
+            font-size: 3rem;
+            text-align: center;
         }
         .container{
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
         .g-btn{
             margin: 3rem;
@@ -33,17 +40,17 @@
             text-align: center;
         }
         .ball{
-            width: 10rem;
-            height: 10rem;
+            width: 7rem;
+            height: 7rem;
             display: inline-block;
             text-align: center;
-            line-height: 10rem;
+            line-height: 7rem;
             font-size: 3rem;
             border-radius: 50%;
             background-color: bisque;
             margin: 1rem;
             font-weight: bold;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
         .number{
             text-align: center;
@@ -66,6 +73,19 @@
         .bg-color5{
             background-color: orange;
         }
+        .ballsL{
+            border: 1px solid skyblue;
+            background-color: rgb(227, 244, 251) ;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+        }
+        .lotto-g{
+            border: 1px solid skyblue;
+            background-color: rgb(227, 244, 251) ;
+            margin-bottom: 2rem;
+            border-radius: 50px;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -77,11 +97,11 @@
                 <button class="real-btn">Generator</button>
                 <button class="reset">Reset</button>
             </div>
-            <div class="balls">
-            </div>
+        </div>
+        <div class="balls">
         </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 <script>    
     const Gbtn = document.querySelector('.real-btn')
     const container = document.querySelector('.container')
@@ -91,9 +111,9 @@
         balls.innerHTML = '';
         if(number.value){
             for(let i = 0; i < number.value; i++){
-                const hr = document.createElement('hr')
-                const rNumbers = _.sampleSize(_.range(1, 46), 6); 
-                balls.appendChild(hr)
+                const rNumbers = _.sampleSize(_.range(1, 46), 6);
+                const ballsL = document.createElement('div')
+                ballsL.classList.add('ballsL')
                 for (let i = 0; i < rNumbers.length;i++){
                     const ball = document.createElement('div')
                     ball.classList.add('ball')
@@ -113,17 +133,39 @@
                     else if(rNumbers[i]<=45){
                         ball.classList.add('bg-color5')
                     }
-                    balls.appendChild(ball)
+                    ballsL.appendChild(ball)
             }
+            balls.appendChild(ballsL)
         }
         }
         else{
-            for (let i = 0; i < rNumbers.length;i++){            
+            const rNumbers = _.sampleSize(_.range(1, 46), 6); 
+            const ballsL = document.createElement('div')
+            ballsL.classList.add('ballsL')   
+            for (let i = 0; i < rNumbers.length;i++){  
+       
                 const ball = document.createElement('div')
                 ball.classList.add('ball')
                 ball.innerText=rNumbers[i]
-                balls.appendChild(ball)
+                                    if(rNumbers[i]<=10){
+                        ball.classList.add('bg-color1')
+                    }
+                    else if(rNumbers[i]<=20){
+                        ball.classList.add('bg-color2')
+                    }
+                    else if(rNumbers[i]<=30){
+                        ball.classList.add('bg-color3')
+                    }
+                    else if(rNumbers[i]<=40){
+                        ball.classList.add('bg-color4')
+                    }
+                    else if(rNumbers[i]<=45){
+                        ball.classList.add('bg-color5')
+                    }
+                ballsL.appendChild(ball)
+                
         }
+        balls.appendChild(ballsL)
         }
     })
     const rst = document.querySelector('.reset')
