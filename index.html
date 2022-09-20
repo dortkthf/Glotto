@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lotto-generator</title>
+    <style>
+        .title{
+            margin: 3rem;
+            font-size: 4rem;
+        }
+        .container{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        .g-btn{
+            margin: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+        .real-btn{
+            font-size: 2rem;
+            background-color: rgba(0, 0, 0, 0);
+            border: 0;
+        }
+        .reset{
+            font-size: 2rem;
+            background-color: rgba(0, 0, 0, 0);
+            border: 0;
+            padding:0 3rem;
+        }
+        .balls{
+            text-align: center;
+        }
+        .ball{
+            width: 10rem;
+            height: 10rem;
+            display: inline-block;
+            text-align: center;
+            line-height: 10rem;
+            font-size: 3rem;
+            border-radius: 50%;
+            background-color: bisque;
+            margin: 1rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        .number{
+            text-align: center;
+            padding: 0;
+        }
+        .bg-color1{
+            background-color: bisque;
+        }
+        .bg-color2{
+            background-color: skyblue;
+        }
+        .bg-color3{
+            background-color: lightgreen;
+        }
+        .bg-color4{
+            background-color: coral;
+        }
+        .bg-color5{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lotto-g">
+            <h1 class="title">로또 번호 생성기</h1>
+            <div class="g-btn">
+                <input type="text" class="number" placeholder="구매할 복권 개수">
+                <button class="real-btn">Generator</button>
+                <button class="reset">Reset</button>
+            </div>
+            <div class="balls">
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script>    
+    const Gbtn = document.querySelector('.real-btn')
+    const container = document.querySelector('.container')
+    const number = document.querySelector('.number')
+    const balls = document.querySelector('.balls')
+    Gbtn.addEventListener('click',function(){
+        balls.innerHTML = '';
+        if(number.value){
+            for(let i = 0; i < number.value; i++){
+                const hr = document.createElement('hr')
+                const rNumbers = _.sampleSize(_.range(1, 46), 6); 
+                balls.appendChild(hr)
+                for (let i = 0; i < rNumbers.length;i++){
+                    const ball = document.createElement('div')
+                    ball.classList.add('ball')
+                    ball.innerText=rNumbers[i]
+                    if(rNumbers[i]<=10){
+                        ball.classList.add('bg-color1')
+                    }
+                    else if(rNumbers[i]<=20){
+                        ball.classList.add('bg-color2')
+                    }
+                    else if(rNumbers[i]<=30){
+                        ball.classList.add('bg-color3')
+                    }
+                    else if(rNumbers[i]<=40){
+                        ball.classList.add('bg-color4')
+                    }
+                    else if(rNumbers[i]<=45){
+                        ball.classList.add('bg-color5')
+                    }
+                    balls.appendChild(ball)
+            }
+        }
+        }
+        else{
+            for (let i = 0; i < rNumbers.length;i++){            
+                const ball = document.createElement('div')
+                ball.classList.add('ball')
+                ball.innerText=rNumbers[i]
+                balls.appendChild(ball)
+        }
+        }
+    })
+    const rst = document.querySelector('.reset')
+    rst.addEventListener('click',function(){
+        const balls = document.querySelector('.balls')
+        balls.innerHTML = '';
+    })
+</script>
+</body>
+</html>
